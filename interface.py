@@ -12,7 +12,6 @@ class interface:
     def draw(self):
         pass
 
-class Grille:
-    pass
+
 
 interface()
