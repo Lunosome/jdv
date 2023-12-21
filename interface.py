@@ -1,4 +1,5 @@
 import pyxel
+from grille import Grille, Cellule
 
 class interface:
 
