@@ -5,13 +5,23 @@ class Cellule:
         self.x = coordonnee_x
         self.y = coordonnee_y
         self.g = grille
+    
+    def nb_viv(self):
+        pass
 
     def calcule_etat_futur(self):
         """détermine état à venir de la cellule au prochain tour"""
+        pt = self.g.voisines(self.x, self.y)
+        if self.viv == True and (pt == 2 or pt == 3):
+            self.vivra = True
+        elif self.viv == False and self.g.voisines(self.x, self.y) == 3:
+            self.vivra = True
+        else :
+            self.vivra = False
 
     def Maj(self):
         """met à jour la cellule en affectant l'état à venir vivra à l'attribut actuel vivante"""
-        self.vivante = self.vivra
+        self.viv = self.vivra
 
 class Grille:
     
