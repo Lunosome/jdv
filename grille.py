@@ -1,5 +1,5 @@
 class Cellule:
-    def __init__(self, coordonnee_x : int, coordonnee_y : int, grille : Grille):
+    def __init__(self, coordonnee_x : int, coordonnee_y : int, grille):
         self.viv = False
         self.vivra = False
         self.x = coordonnee_x
@@ -7,14 +7,19 @@ class Cellule:
         self.g = grille
     
     def nb_viv(self):
-        pass
+        """renvoie un entier qui est le nombre de voisines vivantes"""
+        tab = self.g.voisines(self.x, self.y)
+        nb = 1
+        for nb in range(len(tab)):
+            nb += 1
+        return nb
 
     def calcule_etat_futur(self):
         """détermine état à venir de la cellule au prochain tour"""
-        pt = self.g.voisines(self.x, self.y)
-        if self.viv == True and (pt == 2 or pt == 3):
+        n = self.nb_viv()
+        if self.viv == True and (n == 2 or n == 3):
             self.vivra = True
-        elif self.viv == False and self.g.voisines(self.x, self.y) == 3:
+        elif self.viv == False and n == 3:
             self.vivra = True
         else :
             self.vivra = False
@@ -28,7 +33,8 @@ class Grille:
     def __init__(self, largeur, hauteur):
         self.largeur = largeur
         self.hauteur = hauteur
-        self.c = [[Cellule(x, y, self) for x in hauteur ]for y in largeur]
+        self.c = [[Cellule(x, y, self) for x in range(largeur)] for y in range(hauteur)]
+        a = 1
 
     def voisines(self, x, y):
         #va mettre dans le tableau voisines les cellules qui sont vivante autour de la cellule donnée
@@ -38,6 +44,8 @@ class Grille:
                 if Cellule(i,j) == True:
                     voisines.append(Cellule(i,j))
 
+    def get_cellule(self, x, y):
+        return self.c[y][x]
 
     def tour(self):
         pass
