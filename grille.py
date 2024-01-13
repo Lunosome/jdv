@@ -1,3 +1,8 @@
+
+###############################################        
+###Class Cellule
+###############################################
+
 class Cellule:
     def __init__(self, coordonnee_x : int, coordonnee_y : int, grille):
         self.viv = False
@@ -28,6 +33,11 @@ class Cellule:
         """met à jour la cellule en affectant l'état à venir vivra à l'attribut actuel vivante"""
         self.viv = self.vivra
 
+
+###############################################        
+###Class Grille
+###############################################
+        
 class Grille:
     
     def __init__(self, largeur, hauteur):
@@ -35,6 +45,7 @@ class Grille:
         self.hauteur = hauteur
         self.c = [[Cellule(x, y, self) for x in range(largeur)] for y in range(hauteur)]
         a = 1
+
 
     def voisines(self, x, y):
         #va mettre dans le tableau voisines les cellules qui sont vivante autour de la cellule donnée
@@ -44,15 +55,22 @@ class Grille:
                 if Cellule(i,j) == True:
                     voisines.append(Cellule(i,j))
 
+
     def get_cellule(self, x, y):
         return self.c[y][x]
+    
 
     def tour(self):
-        pass
+        for x in range(self.largeur):
+            for y in range(self.hauteur):
+                self.c[x][y].calcule_etat_futur()
+        for x in range(self.largeur):
+            for y in range(self.hauteur):
+                self.c[x][y].Maj()
+
         
 
     def remplir(self):
-        pass
-
-    def afficher(self):
-        pass
+        for x, y in self.c:
+            if 0 <= x < self.largeur and 0 <= y < self.hauteur:
+                self.cellules[x][y].vivante = True
